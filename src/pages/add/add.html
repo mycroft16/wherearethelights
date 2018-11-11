@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Add a Display
+    </ion-title>
+    <ion-buttons end>
+		<button ion-button icon-only (click)="cancelAdd()">
+			<ion-icon name="close" class="whitetxt"></ion-icon>
+		</button>
+	</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div *ngIf="showLoader" class="loadingBackdrop">&nbsp;</div>
+	<div *ngIf="showLoader" class="loadingSpinner"><ion-spinner></ion-spinner></div>
+	Please enter some information about the display at:<br />
+	{{data.address.street}}<br />
+	{{data.address.city}} {{data.address.state}}, {{data.address.zip}}
+	<hr />
+	<form>
+		<ion-item>
+			<ion-label stacked>Location type</ion-label>
+			<ion-select name="locationType" [(ngModel)]="locationType">
+				<ion-option value="Business">Business</ion-option>
+				<ion-option value="Residential" selected>Residential</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>Display type</ion-label>
+			<ion-select name="displayType" [(ngModel)]="displayType">
+				<ion-option value="">Select</ion-option>
+				<ion-option value="Static">Static</ion-option>
+				<ion-option value="Animated">Animated</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item *ngIf="displayType === 'Animated'">
+			<ion-label stacked>Is there music?</ion-label>
+			<ion-select name="displayMusic" [(ngModel)]="displayMusic">
+				<ion-option value="No">No</ion-option>
+				<ion-option value="Speakers">Yes - Speakers</ion-option>
+				<ion-option value="Radio">Yes - Radio</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item *ngIf="displayMusic === 'Radio'">
+			<ion-label stacked>What frequency?</ion-label>
+			<ion-input type="number" name="radioFrequency" placeholder="" [(ngModel)]="radioFrequency"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>Rate the display</ion-label>
+			<ion-range min="0" max="100" name="displayRating" [(ngModel)]="displayRating">
+				<ion-label range-left>Scrooge</ion-label>
+				<ion-label range-right>Griswold</ion-label>
+			</ion-range>
+		</ion-item>
+	</form>
+</ion-content>
+
+<ion-footer text-right>
+	<button ion-button color="" icon-right (click)="addDisplay()">
+		Submit
+		<ion-icon name="plus"></ion-icon>
+	</button>
+</ion-footer>
